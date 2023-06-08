@@ -52,6 +52,7 @@ public class HelloApplication extends Application {
         Button buttonDivided= new Button("/");
         Button buttonEquals = new Button("=");
         Button buttonClear = new Button("C");
+        Button buttonPercent = new Button("%");
 
         // Définit la taille des boutons
         button0.setMinSize(50, 50);
@@ -68,6 +69,7 @@ public class HelloApplication extends Application {
         buttonMinus.setMinSize(75 , 50);
         buttonTimes.setMinSize(75 , 50);
         buttonDivided.setMinSize(75 , 50);
+        buttonPercent.setMinSize(75 , 50);
         buttonEquals.setMinSize(100 , 50);
         buttonClear.setMinSize(75 , 50);
 
@@ -87,6 +89,7 @@ public class HelloApplication extends Application {
         buttonMinus.setStyle("-fx-background-color: #FFFFFF;");
         buttonTimes.setStyle("-fx-background-color: #FFFFFF;");
         buttonDivided.setStyle("-fx-background-color: #FFFFFF;");
+        buttonPercent.setStyle("-fx-background-color: #FFFFFF;");
         buttonEquals.setStyle("-fx-background-color: #008000;");
         buttonEquals.setStyle("-fx-text-fill: #008000;");
         buttonClear.setStyle("-fx-background-color: #FF0000;");
@@ -138,6 +141,9 @@ public class HelloApplication extends Application {
 
         AnchorPane.setTopAnchor(buttonDivided, 180.0);
         AnchorPane.setLeftAnchor(buttonDivided, 400.0);
+
+        AnchorPane.setTopAnchor(buttonPercent, 180.0);
+        AnchorPane.setLeftAnchor(buttonPercent, 300.0);
 
         AnchorPane.setTopAnchor(buttonClear, 180.0);
         AnchorPane.setLeftAnchor(buttonClear, 100.0);
@@ -270,6 +276,18 @@ public class HelloApplication extends Application {
             }
         });
 
+
+        buttonPercent.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Percent of !");
+                double num = Double.parseDouble(resultLabel.getText());
+                currentNumber += num;
+                resultLabel.setText("");
+                operator = '%';
+            }
+        });
+
         buttonEquals.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -289,6 +307,9 @@ public class HelloApplication extends Application {
                     case '/':
                         result = currentNumber / num;
                         break;
+                    case '%':
+                        result = (num/100)*currentNumber;
+                        break;
                     default:
                         result = num;
                         break;
@@ -304,7 +325,7 @@ public class HelloApplication extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Effacé");
-                resultLabel.setText(""); // Efface le contenu du resultLabel  
+                resultLabel.setText(""); // Efface le contenu du resultLabel
             }
         });
 
@@ -317,7 +338,7 @@ public class HelloApplication extends Application {
         root.getChildren().addAll(button0, button1, button2, button3, button4
                 , button5, button6, button7, button8, button9
                 , buttonPlus, buttonMinus, buttonTimes, buttonDivided, buttonEquals
-                , buttonClear );
+                , buttonClear, buttonPercent );
 
 
         // Crée le label d'affichage des valeurs
