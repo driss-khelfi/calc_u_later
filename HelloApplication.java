@@ -14,6 +14,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import com.example.calc.Operation;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import javafx.fxml.FXML;
 
 import java.io.IOException;
 
@@ -21,9 +24,17 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     private Label resultLabel;
+    private double memory = 0;
+    private double result = 0.0;
     private double currentNumber = 0.0;
     private double total = 0.0;
     private char operator = ' ';
+
+    @FXML
+    private Label memoryLabel;
+
+    private double memoryValue;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -52,7 +63,12 @@ public class HelloApplication extends Application {
         Button buttonDivided= new Button("/");
         Button buttonEquals = new Button("=");
         Button buttonClear = new Button("C");
+        Button buttonMemoryAdd = new Button("M+");
+        Button buttonMemoryRemove = new Button("M-");
+        Button buttonMemoryRead = new Button("MR");
+        Button buttonMemoryClear = new Button("MC");
         Button buttonPercent = new Button("%");
+        Button buttonDecimal = new Button(",");
 
         // Définit la taille des boutons
         button0.setMinSize(50, 50);
@@ -70,8 +86,13 @@ public class HelloApplication extends Application {
         buttonTimes.setMinSize(75 , 50);
         buttonDivided.setMinSize(75 , 50);
         buttonPercent.setMinSize(75 , 50);
+        buttonDecimal.setMinSize(50 , 50);
         buttonEquals.setMinSize(100 , 50);
         buttonClear.setMinSize(75 , 50);
+        buttonMemoryAdd.setMinSize(75 , 50);
+        buttonMemoryRemove.setMinSize(75 , 50);
+        buttonMemoryRead.setMinSize(75 , 50);
+        buttonMemoryClear.setMinSize(75 , 50);
 
 
         // Définit la couleur des boutons
@@ -90,10 +111,19 @@ public class HelloApplication extends Application {
         buttonTimes.setStyle("-fx-background-color: #FFFFFF;");
         buttonDivided.setStyle("-fx-background-color: #FFFFFF;");
         buttonPercent.setStyle("-fx-background-color: #FFFFFF;");
+        buttonDecimal.setStyle("-fx-background-color: #FFFFFF;");
         buttonEquals.setStyle("-fx-background-color: #008000;");
         buttonEquals.setStyle("-fx-text-fill: #008000;");
         buttonClear.setStyle("-fx-background-color: #FF0000;");
         buttonClear.setStyle("-fx-text-fill: #FF0000;");
+        buttonMemoryAdd.setStyle("-fx-text-fill: #000000;");
+        buttonMemoryAdd.setStyle("-fx-background-color: #0079ff;");
+        buttonMemoryRemove.setStyle("-fx-text-fill: #000000;");
+        buttonMemoryRemove.setStyle("-fx-background-color: #ff6700;");
+        buttonMemoryRead.setStyle("-fx-text-fill: #000000;");
+        buttonMemoryRead.setStyle("-fx-background-color: #00ff24;");
+        buttonMemoryClear.setStyle("-fx-text-fill: #000000;");
+        buttonMemoryClear.setStyle("-fx-background-color: #ff0000;");
 
 
         // Positionne les boutons dans l'AnchorPane
@@ -145,8 +175,23 @@ public class HelloApplication extends Application {
         AnchorPane.setTopAnchor(buttonPercent, 180.0);
         AnchorPane.setLeftAnchor(buttonPercent, 300.0);
 
+        AnchorPane.setTopAnchor(buttonDecimal, 430.0);
+        AnchorPane.setLeftAnchor(buttonDecimal, 300.0);
+
         AnchorPane.setTopAnchor(buttonClear, 180.0);
         AnchorPane.setLeftAnchor(buttonClear, 100.0);
+
+        AnchorPane.setTopAnchor(buttonMemoryAdd, 180.0);
+        AnchorPane.setLeftAnchor(buttonMemoryAdd, 10.0);
+
+        AnchorPane.setTopAnchor(buttonMemoryRemove, 240.0);
+        AnchorPane.setLeftAnchor(buttonMemoryRemove, 10.0);
+
+        AnchorPane.setTopAnchor(buttonMemoryRead, 300.0);
+        AnchorPane.setLeftAnchor(buttonMemoryRead, 10.0);
+
+        AnchorPane.setTopAnchor(buttonMemoryClear, 360.0);
+        AnchorPane.setLeftAnchor(buttonMemoryClear, 10.0);
 
 
 
@@ -237,7 +282,7 @@ public class HelloApplication extends Application {
             public void handle(ActionEvent event) {
                 System.out.println("Plus !");
                 double num = Double.parseDouble(resultLabel.getText());
-                currentNumber += num;
+                total += num;
                 resultLabel.setText("");
                 operator = '+';
             }
@@ -248,7 +293,7 @@ public class HelloApplication extends Application {
             public void handle(ActionEvent event) {
                 System.out.println("Minus !");
                 double num = Double.parseDouble(resultLabel.getText());
-                currentNumber += num;
+                total += num;
                 resultLabel.setText("");
                 operator = '-';
             }
@@ -259,7 +304,7 @@ public class HelloApplication extends Application {
             public void handle(ActionEvent event) {
                 System.out.println("Times !");
                 double num = Double.parseDouble(resultLabel.getText());
-                currentNumber += num;
+                total += num;
                 resultLabel.setText("");
                 operator = '*';
             }
@@ -268,66 +313,112 @@ public class HelloApplication extends Application {
         buttonDivided.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Diveded by !");
+                System.out.println("Divided by !");
                 double num = Double.parseDouble(resultLabel.getText());
-                currentNumber += num;
+                total += num;
                 resultLabel.setText("");
                 operator = '/';
             }
         });
-
 
         buttonPercent.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Percent of !");
                 double num = Double.parseDouble(resultLabel.getText());
-                currentNumber += num;
+                total += num;
                 resultLabel.setText("");
                 operator = '%';
             }
         });
+        buttonDecimal.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!resultLabel.getText().contains(".")) {
+                    resultLabel.setText(resultLabel.getText() + ".");
+                }
+            }
+        });
+
+        buttonMemoryAdd.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                double num = Double.parseDouble(resultLabel.getText());
+                // Stocker la valeur dans la mémoire (exemple avec une variable de classe)
+                memory += num;
+                resultLabel.setText("");
+                System.out.println("memory added");
+            }
+        });
+
+        buttonMemoryRead.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                resultLabel.setText(resultLabel.getText() + memory);
+
+            }
+        });
+
+        buttonMemoryClear.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                memory = 0;
+                resultLabel.setText("");
+
+            }
+        });
+
+
+
 
         buttonEquals.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Egal !");
-                double num = Double.parseDouble(resultLabel.getText());
-                double result;
+                BigDecimal num = new BigDecimal(resultLabel.getText());
+                BigDecimal totalValue = new BigDecimal(total);
+                BigDecimal result;
+
                 switch (operator) {
                     case '+':
-                        result = currentNumber + num;
+                        result = totalValue.add(num);
                         break;
                     case '-':
-                        result = currentNumber - num;
+                        result = totalValue.subtract(num);
                         break;
                     case '*':
-                        result = currentNumber * num;
+                        result = totalValue.multiply(num);
                         break;
                     case '/':
-                        result = currentNumber / num;
+                        result = totalValue.divide(num, 10, RoundingMode.HALF_UP);
                         break;
                     case '%':
-                        result = (num/100)*currentNumber;
+                        result = totalValue.divide(new BigDecimal(100), 10, RoundingMode.HALF_UP).multiply(num);
                         break;
                     default:
                         result = num;
                         break;
                 }
-                resultLabel.setText(String.valueOf(result));
-                currentNumber = 0.0;
+
+                total = 0.0;
+                resultLabel.setText(result.stripTrailingZeros().toPlainString());
                 operator = ' ';
             }
-
         });
+
+
+
 
         buttonClear.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Effacé");
                 resultLabel.setText(""); // Efface le contenu du resultLabel
+                result = 0.0; // Réinitialise la variable result à zéro
             }
         });
+
+
 
 
 
@@ -338,7 +429,8 @@ public class HelloApplication extends Application {
         root.getChildren().addAll(button0, button1, button2, button3, button4
                 , button5, button6, button7, button8, button9
                 , buttonPlus, buttonMinus, buttonTimes, buttonDivided, buttonEquals
-                , buttonClear, buttonPercent );
+                , buttonDecimal, buttonClear, buttonMemoryAdd, buttonMemoryRemove, buttonMemoryRead,
+                buttonMemoryClear, buttonPercent );
 
 
         // Crée le label d'affichage des valeurs
@@ -358,6 +450,8 @@ public class HelloApplication extends Application {
 
         primaryStage.show();
     }
+
+
 
 
     public void Operation() {
