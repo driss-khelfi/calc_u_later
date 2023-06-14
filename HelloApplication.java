@@ -69,18 +69,31 @@ public class HelloApplication extends Application {
         Button buttonMemoryClear = new Button("MC");
         Button buttonPercent = new Button("%");
         Button buttonDecimal = new Button(",");
+        Button buttonScientific = new Button("S");
+        Button buttonCosinus = new Button("cos");
+        Button buttonSinus = new Button("sin");
+        Button buttonTangente = new Button("tan");
+        Button buttonNaturalLogarithm = new Button("ln");
+        Button buttonDecimalLogarithm = new Button("log10");
+        Button buttonArcCosinus = new Button("arc cos");
+        Button buttonArcSinus= new Button("arc sin");
+        Button buttonArcTangente = new Button("arc tan");
+        Button buttonSquaredRoot = new Button("sqr");
+        Button buttonSquaredPower = new Button("x^2");
+        Button buttonCubedPower = new Button("x^3");
+        Button buttonMathPower = new Button("x^y");
 
         // Définit la taille des boutons
-        button0.setMinSize(50, 50);
-        button1.setMinSize(50, 50);
-        button2.setMinSize(50, 50);
-        button3.setMinSize(50, 50);
-        button4.setMinSize(50, 50);
-        button5.setMinSize(50 , 50);
-        button6.setMinSize(50 , 50);
-        button7.setMinSize(50 , 50);
-        button8.setMinSize(50 , 50);
-        button9.setMinSize(50 , 50);
+        button0.setMinSize(75, 50);
+        button1.setMinSize(75, 50);
+        button2.setMinSize(75, 50);
+        button3.setMinSize(75, 50);
+        button4.setMinSize(75, 50);
+        button5.setMinSize(75 , 50);
+        button6.setMinSize(75 , 50);
+        button7.setMinSize(75 , 50);
+        button8.setMinSize(75 , 50);
+        button9.setMinSize(75 , 50);
         buttonPlus.setMinSize(75 , 50);
         buttonMinus.setMinSize(75 , 50);
         buttonTimes.setMinSize(75 , 50);
@@ -93,6 +106,20 @@ public class HelloApplication extends Application {
         buttonMemoryRemove.setMinSize(75 , 50);
         buttonMemoryRead.setMinSize(75 , 50);
         buttonMemoryClear.setMinSize(75 , 50);
+        buttonScientific.setMinSize(75, 50);
+        buttonCosinus.setMinSize(75, 25);
+        buttonSinus.setMinSize(75, 25);
+        buttonTangente.setMinSize(75, 25);
+        buttonNaturalLogarithm.setMinSize(75, 25);
+        buttonDecimalLogarithm.setMinSize(75, 25);
+        buttonArcCosinus.setMinSize(75, 25);
+        buttonArcSinus.setMinSize(75, 25);
+        buttonArcTangente.setMinSize(75, 25);
+        buttonSquaredRoot.setMinSize(75, 25);
+        buttonSquaredPower.setMinSize(75, 25);
+        buttonCubedPower.setMinSize(75, 25);
+        buttonMathPower.setMinSize(75, 25);
+
 
 
         // Définit la couleur des boutons
@@ -117,13 +144,41 @@ public class HelloApplication extends Application {
         buttonClear.setStyle("-fx-background-color: #FF0000;");
         buttonClear.setStyle("-fx-text-fill: #FF0000;");
         buttonMemoryAdd.setStyle("-fx-text-fill: #000000;");
-        buttonMemoryAdd.setStyle("-fx-background-color: #0079ff;");
+        buttonMemoryAdd.setStyle("-fx-background-color: #FFFFFF;");
         buttonMemoryRemove.setStyle("-fx-text-fill: #000000;");
-        buttonMemoryRemove.setStyle("-fx-background-color: #ff6700;");
+        buttonMemoryRemove.setStyle("-fx-background-color: #FFFFFF;");
         buttonMemoryRead.setStyle("-fx-text-fill: #000000;");
-        buttonMemoryRead.setStyle("-fx-background-color: #00ff24;");
+        buttonMemoryRead.setStyle("-fx-background-color: #FFFFFF");
         buttonMemoryClear.setStyle("-fx-text-fill: #000000;");
-        buttonMemoryClear.setStyle("-fx-background-color: #ff0000;");
+        buttonMemoryClear.setStyle("-fx-background-color: #FFFFFF;");
+        buttonScientific.setStyle("-fx-text-fill: #000000;");
+        buttonScientific.setStyle("-fx-background-color: #FFFFFF;");
+        buttonCosinus.setStyle("-fx-text-fill: #000000;");
+        buttonCosinus.setStyle("-fx-background-color: #ff0000;");
+        buttonArcCosinus.setStyle("-fx-text-fill: #000000;");
+        buttonArcCosinus.setStyle("-fx-background-color: #FFFFFF;");
+
+        buttonSinus.setStyle("-fx-text-fill: #000000;");
+        buttonSinus.setStyle("-fx-background-color: #FFFFFF;");
+        buttonArcSinus.setStyle("-fx-text-fill: #000000;");
+        buttonArcSinus.setStyle("-fx-background-color: #FFFFFF;");
+        buttonTangente.setStyle("-fx-text-fill: #000000;");
+        buttonTangente.setStyle("-fx-background-color: #FFFFFF;");
+        buttonArcTangente.setStyle("-fx-text-fill: #000000;");
+        buttonArcTangente.setStyle("-fx-background-color: #FFFFFF;");
+        buttonNaturalLogarithm.setStyle("-fx-text-fill: #000000;");
+        buttonNaturalLogarithm.setStyle("-fx-background-color: #FFFFFF;");
+        buttonDecimalLogarithm.setStyle("-fx-text-fill: #000000;");
+        buttonDecimalLogarithm.setStyle("-fx-background-color: #FFFFFF;");
+        buttonSquaredRoot.setStyle("-fx-text-fill: #000000;");
+        buttonSquaredRoot.setStyle("-fx-background-color: #FFFFFF;");
+        buttonSquaredPower.setStyle("-fx-text-fill: #000000;");
+        buttonSquaredPower.setStyle("-fx-background-color: #FFFFFF;");
+        buttonCubedPower.setStyle("-fx-text-fill: #000000;");
+        buttonCubedPower.setStyle("-fx-background-color: #FFFFFF;");
+        buttonMathPower.setStyle("-fx-text-fill: #000000;");
+        buttonMathPower.setStyle("-fx-background-color: #FFFFFF;");
+
 
 
         // Positionne les boutons dans l'AnchorPane
@@ -192,6 +247,45 @@ public class HelloApplication extends Application {
 
         AnchorPane.setTopAnchor(buttonMemoryClear, 360.0);
         AnchorPane.setLeftAnchor(buttonMemoryClear, 10.0);
+
+        AnchorPane.setTopAnchor(buttonScientific, 430.0);
+        AnchorPane.setLeftAnchor(buttonScientific, 10.0);
+
+        AnchorPane.setTopAnchor(buttonCosinus, 150.0);
+        AnchorPane.setLeftAnchor(buttonCosinus, 10.0);
+
+        AnchorPane.setTopAnchor(buttonArcCosinus, 120.0);
+        AnchorPane.setLeftAnchor(buttonArcCosinus, 10.0);
+
+        AnchorPane.setTopAnchor(buttonSinus, 150.0);
+        AnchorPane.setLeftAnchor(buttonSinus, 100.0);
+
+        AnchorPane.setTopAnchor(buttonArcSinus, 120.0);
+        AnchorPane.setLeftAnchor(buttonArcSinus, 100.0);
+
+        AnchorPane.setTopAnchor(buttonTangente, 150.0);
+        AnchorPane.setLeftAnchor(buttonTangente, 200.0);
+
+        AnchorPane.setTopAnchor(buttonArcTangente, 120.0);
+        AnchorPane.setLeftAnchor(buttonArcTangente, 200.0);
+
+        AnchorPane.setTopAnchor(buttonNaturalLogarithm, 150.0);
+        AnchorPane.setLeftAnchor(buttonNaturalLogarithm, 300.0);
+
+        AnchorPane.setTopAnchor(buttonDecimalLogarithm, 150.0);
+        AnchorPane.setLeftAnchor(buttonDecimalLogarithm, 400.0);
+
+        AnchorPane.setTopAnchor(buttonSquaredRoot, 120.0);
+        AnchorPane.setLeftAnchor(buttonSquaredRoot, 300.0);
+
+        AnchorPane.setTopAnchor(buttonSquaredPower, 120.0);
+        AnchorPane.setLeftAnchor(buttonSquaredPower, 400.0);
+
+        AnchorPane.setTopAnchor(buttonCubedPower, 90.0);
+        AnchorPane.setLeftAnchor(buttonCubedPower, 10.0);
+
+        AnchorPane.setTopAnchor(buttonMathPower, 90.0);
+        AnchorPane.setLeftAnchor(buttonMathPower, 100.0);
 
 
 
@@ -331,6 +425,32 @@ public class HelloApplication extends Application {
                 operator = '%';
             }
         });
+
+        buttonScientific.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Scientific mode");
+
+                // Récupère la valeur classique à convertir
+                String input = resultLabel.getText();
+                double decimalNumber = Double.parseDouble(input);
+
+                // Détermine l'exposant de la puissance de 10
+                int exponent = (int) Math.floor(Math.log10(decimalNumber));
+
+                // Calcule le coefficient en divisant le nombre décimal par 10 élevé à l'exposant
+                double coefficient = decimalNumber / Math.pow(10, exponent);
+
+                // Construit la représentation scientifique
+                String scientificNumber = String.format("%.2f x 10^%d", coefficient, exponent);
+
+                // Met à jour le champ de texte avec la valeur scientifique
+                resultLabel.setText(scientificNumber);
+            }
+        });
+
+
+
         buttonDecimal.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -339,6 +459,128 @@ public class HelloApplication extends Application {
                 }
             }
         });
+
+        buttonCosinus.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton cosinus cliqué !");
+                double num = Double.parseDouble(resultLabel.getText());
+                double cosValue = Math.cos(num);
+                resultLabel.setText(String.valueOf(cosValue));
+            }
+        });
+
+        buttonArcCosinus.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton arc cosinus cliqué !");
+                double num = Double.parseDouble(resultLabel.getText());
+                double arccosValue = Math.acos(num);
+                resultLabel.setText(String.valueOf(arccosValue));
+            }
+        });
+
+
+
+        buttonSinus.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton sinus cliqué !");
+                double num = Double.parseDouble(resultLabel.getText());
+                double sinValue = Math.sin(num);
+                resultLabel.setText(String.valueOf(sinValue));
+            }
+        });
+
+        buttonArcSinus.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton arc sinus cliqué !");
+                double num = Double.parseDouble(resultLabel.getText());
+                double arcsinValue = Math.asin(num);
+                resultLabel.setText(String.valueOf(arcsinValue));
+            }
+        });
+
+        buttonTangente.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton tangente cliqué !");
+                double num = Double.parseDouble(resultLabel.getText());
+                double tanValue = Math.tan(num);
+                resultLabel.setText(String.valueOf(tanValue));
+            }
+        });
+
+        buttonArcTangente.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton arc tangente cliqué !");
+                double num = Double.parseDouble(resultLabel.getText());
+                double arctanValue = Math.atan(num);
+                resultLabel.setText(String.valueOf(arctanValue));
+            }
+        });
+
+        buttonNaturalLogarithm.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Logarithme neperien !");
+
+            }
+        });
+
+        buttonDecimalLogarithm.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Logarithme decimal !");
+
+            }
+        });
+
+        buttonSquaredRoot.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton racine carrée !");
+                double num = Double.parseDouble(resultLabel.getText());
+                double sqrtValue = Math.sqrt(num);
+                resultLabel.setText(String.valueOf(sqrtValue));
+            }
+        });
+
+        buttonSquaredPower.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton puissance de 2 !");
+                double num = Double.parseDouble(resultLabel.getText());
+                double powerValue = Math.pow(num, 2);
+                resultLabel.setText(String.valueOf(powerValue));
+            }
+        });
+
+        buttonCubedPower.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton puissance de 3 !");
+                double num = Double.parseDouble(resultLabel.getText());
+                double powerValue = Math.pow(num, 3);
+                resultLabel.setText(String.valueOf(powerValue));
+            }
+        });
+
+        buttonMathPower.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton puissance !");
+                double num = Double.parseDouble(resultLabel.getText());
+                //double exponent = Double.parseDouble(.getText());
+                //double powerValue = Math.pow(num, exponent);
+                //resultLabel.setText(String.valueOf(powerValue));
+            }
+        });
+
+
+
 
         buttonMemoryAdd.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -430,7 +672,10 @@ public class HelloApplication extends Application {
                 , button5, button6, button7, button8, button9
                 , buttonPlus, buttonMinus, buttonTimes, buttonDivided, buttonEquals
                 , buttonDecimal, buttonClear, buttonMemoryAdd, buttonMemoryRemove, buttonMemoryRead,
-                buttonMemoryClear, buttonPercent );
+                buttonMemoryClear, buttonPercent, buttonScientific,
+                buttonCosinus, buttonSinus, buttonTangente, buttonNaturalLogarithm,
+                buttonDecimalLogarithm, buttonArcCosinus, buttonArcSinus, buttonArcTangente,
+                buttonSquaredRoot, buttonSquaredPower, buttonCubedPower, buttonMathPower);
 
 
         // Crée le label d'affichage des valeurs
