@@ -17,13 +17,16 @@ import com.example.calc.Operation;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import javafx.fxml.FXML;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 
 
 
 public class HelloApplication extends Application {
-    private Label resultLabel;
+
+    private Label resultLabel = new Label();
+
     private double memory = 0;
     private double result = 0.0;
     private double currentNumber = 0.0;
@@ -35,6 +38,7 @@ public class HelloApplication extends Application {
 
     private double memoryValue;
 
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -45,8 +49,8 @@ public class HelloApplication extends Application {
 
 
 
-
         // Crée les boutons
+
         Button button0 = new Button("0");
         Button button1 = new Button("1");
         Button button2 = new Button("2");
@@ -82,6 +86,7 @@ public class HelloApplication extends Application {
         Button buttonSquaredPower = new Button("x^2");
         Button buttonCubedPower = new Button("x^3");
         Button buttonMathPower = new Button("x^y");
+        Button buttonTemp = new Button("C°/F°/K°");
 
         // Définit la taille des boutons
         button0.setMinSize(75, 50);
@@ -119,6 +124,7 @@ public class HelloApplication extends Application {
         buttonSquaredPower.setMinSize(75, 25);
         buttonCubedPower.setMinSize(75, 25);
         buttonMathPower.setMinSize(75, 25);
+        buttonTemp.setMinSize(75, 25);
 
 
 
@@ -154,7 +160,7 @@ public class HelloApplication extends Application {
         buttonScientific.setStyle("-fx-text-fill: #000000;");
         buttonScientific.setStyle("-fx-background-color: #FFFFFF;");
         buttonCosinus.setStyle("-fx-text-fill: #000000;");
-        buttonCosinus.setStyle("-fx-background-color: #ff0000;");
+        buttonCosinus.setStyle("-fx-background-color: #FFFFFF;");
         buttonArcCosinus.setStyle("-fx-text-fill: #000000;");
         buttonArcCosinus.setStyle("-fx-background-color: #FFFFFF;");
 
@@ -178,6 +184,11 @@ public class HelloApplication extends Application {
         buttonCubedPower.setStyle("-fx-background-color: #FFFFFF;");
         buttonMathPower.setStyle("-fx-text-fill: #000000;");
         buttonMathPower.setStyle("-fx-background-color: #FFFFFF;");
+        buttonTemp.setStyle("-fx-text-fill: #000000;");
+        buttonTemp.setStyle("-fx-background-color: #FFFFFF;");
+
+
+
 
 
 
@@ -286,6 +297,13 @@ public class HelloApplication extends Application {
 
         AnchorPane.setTopAnchor(buttonMathPower, 90.0);
         AnchorPane.setLeftAnchor(buttonMathPower, 100.0);
+
+        AnchorPane.setTopAnchor(buttonTemp, 90.0);
+        AnchorPane.setLeftAnchor(buttonTemp, 200.0);
+
+
+
+
 
 
 
@@ -526,7 +544,9 @@ public class HelloApplication extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Logarithme neperien !");
-
+                double num = Double.parseDouble(resultLabel.getText());
+                double lnValue = Math.log(num);
+                resultLabel.setText(String.valueOf(lnValue));
             }
         });
 
@@ -534,7 +554,9 @@ public class HelloApplication extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Logarithme decimal !");
-
+                double num = Double.parseDouble(resultLabel.getText());
+                double logDecValue = Math.log10(num);
+                resultLabel.setText(String.valueOf(logDecValue));
             }
         });
 
@@ -568,16 +590,44 @@ public class HelloApplication extends Application {
             }
         });
 
+
+
         buttonMathPower.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Bouton puissance !");
-                double num = Double.parseDouble(resultLabel.getText());
-                //double exponent = Double.parseDouble(.getText());
-                //double powerValue = Math.pow(num, exponent);
-                //resultLabel.setText(String.valueOf(powerValue));
             }
         });
+
+        buttonTemp.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                double num = Double.parseDouble(resultLabel.getText());
+
+                System.out.println("Conversion temperature en Fahreinheit !");
+                double numFahreinheit= Double.parseDouble(resultLabel.getText());
+                double tempValueF = numFahreinheit*9/5+32;
+
+                System.out.println("Conversion temperature en Kelvin !");
+                double numKelvin= Double.parseDouble(resultLabel.getText());
+                double tempValueK = num+273.15;
+
+
+                resultLabel.setText(String.valueOf(num+"C° "+tempValueF+"F° "+ tempValueK+"K"));
+
+
+                }
+
+        });
+
+
+
+
+
+
+
+
+
 
 
 
@@ -619,6 +669,7 @@ public class HelloApplication extends Application {
                 System.out.println("Egal !");
                 BigDecimal num = new BigDecimal(resultLabel.getText());
                 BigDecimal totalValue = new BigDecimal(total);
+
                 BigDecimal result;
 
                 switch (operator) {
@@ -637,6 +688,7 @@ public class HelloApplication extends Application {
                     case '%':
                         result = totalValue.divide(new BigDecimal(100), 10, RoundingMode.HALF_UP).multiply(num);
                         break;
+
                     default:
                         result = num;
                         break;
@@ -675,19 +727,23 @@ public class HelloApplication extends Application {
                 buttonMemoryClear, buttonPercent, buttonScientific,
                 buttonCosinus, buttonSinus, buttonTangente, buttonNaturalLogarithm,
                 buttonDecimalLogarithm, buttonArcCosinus, buttonArcSinus, buttonArcTangente,
-                buttonSquaredRoot, buttonSquaredPower, buttonCubedPower, buttonMathPower);
+                buttonSquaredRoot, buttonSquaredPower, buttonCubedPower, buttonMathPower,
+                buttonTemp);
 
 
         // Crée le label d'affichage des valeurs
         resultLabel = new Label();
-        resultLabel.setStyle("-fx-font-size: 144px;");
+
+        //resultLabel.setStyle("-fx-font-size: 50px;");
+
+        resultLabel.setFont(Font.font("Trebuchet MS", 32));
         resultLabel.setStyle("-fx-background-color: #EDEDED;");
-        AnchorPane.setTopAnchor(resultLabel, 100.0);
+        AnchorPane.setTopAnchor(resultLabel, 10.0);
         AnchorPane.setLeftAnchor(resultLabel, 100.0);
         root.getChildren().add(resultLabel);
 
         // Crée la scène et affiche la fenêtre
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 600, 600);
         primaryStage.setScene(scene);
         // Définit le titre de la fenêtre
         primaryStage.setTitle("Calc u later");
@@ -702,7 +758,10 @@ public class HelloApplication extends Application {
     public void Operation() {
         double num = Double.parseDouble(resultLabel.getText());
         total += num;
+
         resultLabel.setText(String.valueOf(total));
+
+
     }
 
 
