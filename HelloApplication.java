@@ -28,6 +28,7 @@ public class HelloApplication extends Application {
     private Label resultLabel = new Label();
 
     private double memory = 0;
+    private double memoryPrice = 0;
     private double result = 0.0;
     private double currentNumber = 0.0;
     private double total = 0.0;
@@ -87,6 +88,11 @@ public class HelloApplication extends Application {
         Button buttonCubedPower = new Button("x^3");
         Button buttonMathPower = new Button("x^y");
         Button buttonTemp = new Button("C°/F°/K°");
+        Button buttonLong = new Button("cm/inch/m/ft");
+        Button buttonVolume = new Button("l/gal/m3/ft3");
+        Button buttonWeight = new Button("g/o/kg/l");
+        Button buttonDiscount = new Button("discount");
+        Button buttonRaise = new Button("raise");
 
         // Définit la taille des boutons
         button0.setMinSize(75, 50);
@@ -125,6 +131,11 @@ public class HelloApplication extends Application {
         buttonCubedPower.setMinSize(75, 25);
         buttonMathPower.setMinSize(75, 25);
         buttonTemp.setMinSize(75, 25);
+        buttonLong.setMinSize(75, 25);
+        buttonVolume.setMinSize(75, 25);
+        buttonWeight.setMinSize(75, 25);
+        buttonDiscount.setMinSize(75, 25);
+        buttonRaise.setMinSize(75, 25);
 
 
 
@@ -186,6 +197,15 @@ public class HelloApplication extends Application {
         buttonMathPower.setStyle("-fx-background-color: #FFFFFF;");
         buttonTemp.setStyle("-fx-text-fill: #000000;");
         buttonTemp.setStyle("-fx-background-color: #FFFFFF;");
+        buttonVolume.setStyle("-fx-text-fill: #000000;");
+        buttonVolume.setStyle("-fx-background-color: #FFFFFF;");
+        buttonWeight.setStyle("-fx-text-fill: #000000;");
+        buttonWeight.setStyle("-fx-background-color: #FFFFFF;");
+        buttonDiscount.setStyle("-fx-text-fill: #000000;");
+        buttonDiscount.setStyle("-fx-background-color: #FFFFFF;");
+        buttonRaise.setStyle("-fx-text-fill: #000000;");
+        buttonRaise.setStyle("-fx-background-color: #FFFFFF;");
+
 
 
 
@@ -300,6 +320,21 @@ public class HelloApplication extends Application {
 
         AnchorPane.setTopAnchor(buttonTemp, 90.0);
         AnchorPane.setLeftAnchor(buttonTemp, 200.0);
+
+        AnchorPane.setTopAnchor(buttonLong, 90.0);
+        AnchorPane.setLeftAnchor(buttonLong, 300.0);
+
+        AnchorPane.setTopAnchor(buttonVolume, 90.0);
+        AnchorPane.setLeftAnchor(buttonVolume, 400.0);
+
+        AnchorPane.setTopAnchor(buttonWeight, 90.0);
+        AnchorPane.setLeftAnchor(buttonWeight, 500.0);
+
+        AnchorPane.setTopAnchor(buttonDiscount, 120.0);
+        AnchorPane.setLeftAnchor(buttonDiscount, 500.0);
+
+        AnchorPane.setTopAnchor(buttonRaise, 150.0);
+        AnchorPane.setLeftAnchor(buttonRaise, 500.0);
 
 
 
@@ -444,6 +479,31 @@ public class HelloApplication extends Application {
             }
         });
 
+        buttonDiscount.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                double num = Double.parseDouble(resultLabel.getText());
+
+                // Stocker la valeur dans la mémoire (exemple avec une variable de classe)
+                if (memoryPrice == 0) {
+                    memoryPrice = num;
+                    resultLabel.setText(memoryPrice + " discounted of ");
+                    System.out.println("Memory price set: " + memoryPrice);
+                } else {
+                    double discountedPrice = memoryPrice * (1 - (num / 100));
+                    resultLabel.setText(String.valueOf(discountedPrice));
+                    System.out.println(discountedPrice);
+                }
+            }
+        });
+
+
+
+
+
+
+
+
         buttonScientific.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -472,6 +532,7 @@ public class HelloApplication extends Application {
         buttonDecimal.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
                 if (!resultLabel.getText().contains(".")) {
                     resultLabel.setText(resultLabel.getText() + ".");
                 }
@@ -620,6 +681,82 @@ public class HelloApplication extends Application {
 
         });
 
+        buttonLong.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                double num = Double.parseDouble(resultLabel.getText());
+
+                System.out.println("Conversion longueur en pouces !");
+                double numInch= Double.parseDouble(resultLabel.getText());
+                double longValueI = num/2.54;
+
+                System.out.println("Conversion longueur en mètres !");
+                double numMeter= Double.parseDouble(resultLabel.getText());
+                double longValueM = num/100;
+
+                System.out.println("Conversion longueur en pieds !");
+                double numFoot= Double.parseDouble(resultLabel.getText());
+                double longValueF = num/30.48;
+
+
+                resultLabel.setText(String.valueOf(num+"cm "+longValueI+"inch  "+ longValueM+"m "+longValueF+"ft "));
+
+
+            }
+
+        });
+
+        buttonVolume.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                double num = Double.parseDouble(resultLabel.getText());
+
+                System.out.println("Conversion longueur en gallons !");
+                double numGallon= Double.parseDouble(resultLabel.getText());
+                double longValueG = num*3.79;
+
+                System.out.println("Conversion longueur en mètres cubes!");
+                double numMeterCube= Double.parseDouble(resultLabel.getText());
+                double longValueMC = num/1000;
+
+                System.out.println("Conversion longueur en pieds cubes !");
+                double numFootCube= Double.parseDouble(resultLabel.getText());
+                double longValueFC = num/28.317;
+
+
+                resultLabel.setText(String.valueOf(num+"l "+longValueG+"inch  "+ longValueMC+"m3 "+longValueFC+"ft3 "));
+
+
+            }
+
+        });
+
+        buttonWeight.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                double num = Double.parseDouble(resultLabel.getText());
+
+                System.out.println("Conversion longueur en once !");
+                double numOnce= Double.parseDouble(resultLabel.getText());
+                double longValueO = num/28.35;
+
+                System.out.println("Conversion longueur en kilogrammes!");
+                double numKilogrammes= Double.parseDouble(resultLabel.getText());
+                double longValueKG = num/1000;
+
+                System.out.println("Conversion longueur en livres !");
+                double numLivres= Double.parseDouble(resultLabel.getText());
+                double longValueL = num/453.6
+                ;
+
+
+                resultLabel.setText(String.valueOf(num+"g "+longValueO+"oz  "+ longValueKG+"kg "+longValueL+"lb "));
+
+
+            }
+
+        });
+
 
 
 
@@ -689,6 +826,10 @@ public class HelloApplication extends Application {
                         result = totalValue.divide(new BigDecimal(100), 10, RoundingMode.HALF_UP).multiply(num);
                         break;
 
+
+
+
+
                     default:
                         result = num;
                         break;
@@ -728,7 +869,7 @@ public class HelloApplication extends Application {
                 buttonCosinus, buttonSinus, buttonTangente, buttonNaturalLogarithm,
                 buttonDecimalLogarithm, buttonArcCosinus, buttonArcSinus, buttonArcTangente,
                 buttonSquaredRoot, buttonSquaredPower, buttonCubedPower, buttonMathPower,
-                buttonTemp);
+                buttonTemp, buttonLong, buttonVolume, buttonWeight, buttonDiscount, buttonRaise );
 
 
         // Crée le label d'affichage des valeurs
@@ -736,7 +877,7 @@ public class HelloApplication extends Application {
 
         //resultLabel.setStyle("-fx-font-size: 50px;");
 
-        resultLabel.setFont(Font.font("Trebuchet MS", 32));
+        resultLabel.setFont(Font.font("Trebuchet MS", 16));
         resultLabel.setStyle("-fx-background-color: #EDEDED;");
         AnchorPane.setTopAnchor(resultLabel, 10.0);
         AnchorPane.setLeftAnchor(resultLabel, 100.0);
