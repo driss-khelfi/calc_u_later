@@ -29,6 +29,8 @@ public class HelloApplication extends Application {
 
     private double memory = 0;
     private double memoryPrice = 0;
+    private double memoryFraction = 0;
+    private boolean fractionned = false;
     private double result = 0.0;
     private double currentNumber = 0.0;
     private double total = 0.0;
@@ -62,6 +64,7 @@ public class HelloApplication extends Application {
         Button button7 = new Button("7");
         Button button8 = new Button("8");
         Button button9 = new Button("9");
+        Button buttonNegative = new Button("-");
         Button buttonPlus = new Button("+");
         Button buttonMinus = new Button("-");
         Button buttonTimes = new Button("X");
@@ -93,6 +96,8 @@ public class HelloApplication extends Application {
         Button buttonWeight = new Button("g/o/kg/l");
         Button buttonDiscount = new Button("discount");
         Button buttonRaise = new Button("raise");
+        Button buttonFraction = new Button("fraction");
+        Button buttonDevise = new Button("€/$");
 
         // Définit la taille des boutons
         button0.setMinSize(75, 50);
@@ -105,6 +110,7 @@ public class HelloApplication extends Application {
         button7.setMinSize(75 , 50);
         button8.setMinSize(75 , 50);
         button9.setMinSize(75 , 50);
+        buttonNegative.setMinSize(75 , 50);
         buttonPlus.setMinSize(75 , 50);
         buttonMinus.setMinSize(75 , 50);
         buttonTimes.setMinSize(75 , 50);
@@ -136,6 +142,8 @@ public class HelloApplication extends Application {
         buttonWeight.setMinSize(75, 25);
         buttonDiscount.setMinSize(75, 25);
         buttonRaise.setMinSize(75, 25);
+        buttonFraction.setMinSize(75, 50);
+        buttonDevise.setMinSize(75, 50);
 
 
 
@@ -150,6 +158,7 @@ public class HelloApplication extends Application {
         button7.setStyle("-fx-background-color: #FFFFFF;");
         button8.setStyle("-fx-background-color: #FFFFFF;");
         button9.setStyle("-fx-background-color: #FFFFFF;");
+        buttonNegative.setStyle("-fx-background-color: #FFFFFF;");
         buttonPlus.setStyle("-fx-background-color: #FFFFFF;");
         buttonMinus.setStyle("-fx-background-color: #FFFFFF;");
         buttonTimes.setStyle("-fx-background-color: #FFFFFF;");
@@ -205,6 +214,10 @@ public class HelloApplication extends Application {
         buttonDiscount.setStyle("-fx-background-color: #FFFFFF;");
         buttonRaise.setStyle("-fx-text-fill: #000000;");
         buttonRaise.setStyle("-fx-background-color: #FFFFFF;");
+        buttonFraction.setStyle("-fx-text-fill: #000000;");
+        buttonFraction.setStyle("-fx-background-color: #FFFFFF;");
+        buttonDevise.setStyle("-fx-text-fill: #000000;");
+        buttonDevise.setStyle("-fx-background-color: #FFFFFF;");
 
 
 
@@ -242,6 +255,9 @@ public class HelloApplication extends Application {
 
         AnchorPane.setTopAnchor(button9, 240.0);
         AnchorPane.setLeftAnchor(button9, 300.0);
+
+        AnchorPane.setTopAnchor(buttonNegative, 430.0);
+        AnchorPane.setLeftAnchor(buttonNegative, 100.0);
 
         AnchorPane.setTopAnchor(buttonEquals, 430.0);
         AnchorPane.setLeftAnchor(buttonEquals, 375.0);
@@ -336,6 +352,12 @@ public class HelloApplication extends Application {
         AnchorPane.setTopAnchor(buttonRaise, 150.0);
         AnchorPane.setLeftAnchor(buttonRaise, 500.0);
 
+        AnchorPane.setTopAnchor(buttonFraction, 180.0);
+        AnchorPane.setLeftAnchor(buttonFraction, 500.0);
+
+        AnchorPane.setTopAnchor(buttonDevise, 180.0);
+        AnchorPane.setLeftAnchor(buttonDevise, 200.0);
+
 
 
 
@@ -424,6 +446,14 @@ public class HelloApplication extends Application {
             }
         });
 
+        buttonNegative.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Bouton - cliqué !");
+                resultLabel.setText(resultLabel.getText() + "-");
+            }
+        });
+
         buttonPlus.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -489,20 +519,24 @@ public class HelloApplication extends Application {
                     memoryPrice = num;
                     resultLabel.setText(memoryPrice + " discounted of ");
                     System.out.println("Memory price set: " + memoryPrice);
-                } else {
-                    double discountedPrice = memoryPrice * (1 - (num / 100));
-                    resultLabel.setText(String.valueOf(discountedPrice));
-                    System.out.println(discountedPrice);
                 }
             }
         });
 
+        buttonFraction.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                double num = Double.parseDouble(resultLabel.getText());
+                System.out.println("Fractionned by !");
+                fractionned = true;
+                memoryFraction = +num;
+                total += num;
+                resultLabel.setText("");
+                operator = '/';
+            }
 
 
-
-
-
-
+        });
 
         buttonScientific.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -757,6 +791,25 @@ public class HelloApplication extends Application {
 
         });
 
+        buttonDevise.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                double num = Double.parseDouble(resultLabel.getText());
+
+                System.out.println("Conversion euros en dollars !");
+                double numInch= Double.parseDouble(resultLabel.getText());
+                double longValueE = num*1.09;
+
+
+
+
+                resultLabel.setText(String.valueOf(num+"€ =  "+longValueE+"$  "));
+
+
+            }
+
+        });
+
 
 
 
@@ -807,6 +860,7 @@ public class HelloApplication extends Application {
                 BigDecimal num = new BigDecimal(resultLabel.getText());
                 BigDecimal totalValue = new BigDecimal(total);
 
+
                 BigDecimal result;
 
                 switch (operator) {
@@ -820,11 +874,23 @@ public class HelloApplication extends Application {
                         result = totalValue.multiply(num);
                         break;
                     case '/':
+
                         result = totalValue.divide(num, 10, RoundingMode.HALF_UP);
+
+
                         break;
                     case '%':
-                        result = totalValue.divide(new BigDecimal(100), 10, RoundingMode.HALF_UP).multiply(num);
-                        break;
+                        if (memoryFraction ==0){
+                            result = totalValue.divide(new BigDecimal(100), 10, RoundingMode.HALF_UP).multiply(num);
+                            break;
+                        }
+                       else if (memoryFraction != 0){
+                            result = totalValue.divide(new BigDecimal(100), 10, RoundingMode.HALF_UP).multiply(num);
+                            System.out.print("mode fraction");
+                            break;
+
+                        }
+
 
 
 
@@ -869,7 +935,8 @@ public class HelloApplication extends Application {
                 buttonCosinus, buttonSinus, buttonTangente, buttonNaturalLogarithm,
                 buttonDecimalLogarithm, buttonArcCosinus, buttonArcSinus, buttonArcTangente,
                 buttonSquaredRoot, buttonSquaredPower, buttonCubedPower, buttonMathPower,
-                buttonTemp, buttonLong, buttonVolume, buttonWeight, buttonDiscount, buttonRaise );
+                buttonTemp, buttonLong, buttonVolume, buttonWeight, buttonDiscount, buttonRaise,
+                buttonFraction, buttonNegative, buttonDevise);
 
 
         // Crée le label d'affichage des valeurs
